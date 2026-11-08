@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import StoryCard from '../components/StoryCard.astro';
+import { SITE, STATS, waLink } from '../data/site';
+import { AREAS, type Area } from '../data/areas';
+import { STORIES } from '../data/stories';
+import { PRICES, formatINR } from '../data/prices';
+import { faqSchema } from '../lib/schema';
+
+export function getStaticPaths() {
+  return AREAS.map((area) => ({ params: { area: area.slug }, props: { area } }));
+}
+const { area: a } = Astro.props as { area: Area };
+const local = STORIES.filter((s) => s.city === 'Pune').slice(0, 3);
+---
+<Base title={a.title} description={a.description} crumbs={[{ name: `Dentist in ${a.name}`, url: `/${a.slug}` }]} schema={[faqSchema(a.faqs)]}>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{a.minutes ? `${a.minutes} minutes from ${a.name}` : 'Located in Wakad'}</p>
+      <h1>{a.h1}</h1>
+      <p class="lead">{a.intro}</p>
+      <ul class="badges"><li>⭐ {STATS.googleRating} Google rating</li><li>{STATS.years} years</li><li>{STATS.implants} implants</li><li>Free parking</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-wa" href={waLink()} rel="noopener">WhatsApp Us</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Why {a.name} Patients Choose Urban Smile</h2>
+      <div class="grid grid-4">{a.localPoints.map((p) => <div class="card"><h3>{p.h}</h3><p>{p.p}</p></div>)}</div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap two-col">
+      <div>
+        <h2>Getting Here from {a.name}</h2>
+        <p>{a.travel}</p>
+        <p><strong>Also close to:</strong> {a.nearby.join(', ')}.</p>
+        <p><strong>Hours:</strong> {SITE.hours.label}</p>
+        <a class="btn btn-outline btn-sm" href={SITE.mapsUrl} rel="noopener">Get directions</a>
+      </div>
+      <iframe class="map" src={SITE.mapsEmbed} title="Urban Smile Dental Clinic map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Dental Services for {a.name}</h2>
+      <div class="grid grid-3">
+        <a class="card" href="/dental-implants/full-mouth"><h3>Full Mouth Implants in 3 Days</h3><p>{formatINR(PRICES.fullMouth)} all-inclusive.</p></a>
+        <a class="card" href="/dental-implants"><h3>Dental Implants</h3><p>Single implants from {formatINR(PRICES.implantOnly)}.</p></a>
+        <a class="card" href="/root-canal"><h3>Root Canal</h3><p>Painless, single-visit, from {formatINR(PRICES.rootCanal)}.</p></a>
+        <a class="card" href="/orthodontics"><h3>Braces &amp; Aligners</h3><p>From {formatINR(PRICES.metalBraces)}.</p></a>
+        <a class="card" href="/smile-makeover"><h3>Smile Makeover</h3><p>Veneers, whitening and bonding.</p></a>
+        <a class="card" href="/services"><h3>General Dentistry</h3><p>Check-ups, cleaning, fillings and extractions.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Pune Patients We've Treated</h2>
+      <div class="grid grid-3">{local.map((s) => <StoryCard story={s} />)}</div>
+    </div>
+  </section>
+
+  <Faq faqs={a.faqs} heading={`FAQs: Dentist near ${a.name}`} />
+  <section class="section"><div class="wrap"><p>Other areas: {AREAS.filter((x) => x.slug !== a.slug).map((x, i) => <>{i > 0 && ' · '}<a href={`/${x.slug}`}>{x.name}</a></>)} · <a href="/best-dentist-in-pune">Pune</a></p></div></section>
+  <Cta heading={`Book Your Visit from ${a.name}`} />
+</Base>

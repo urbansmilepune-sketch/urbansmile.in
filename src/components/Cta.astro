@@ -1,0 +1,18 @@
+---
+import { SITE, waLink } from '../data/site';
+interface Props { heading?: string; text?: string }
+const { heading = 'Book Your Free Consultation', text = `Meet ${SITE.doctor.name} in Wakad for a check-up and a clear treatment plan with exact costs.` } = Astro.props;
+---
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>{heading}</h2>
+      <p>{text}</p>
+      <div class="btn-row">
+        <a class="btn btn-wa" href={waLink()} rel="noopener">WhatsApp Us</a>
+        <a class="btn btn-outline" href={SITE.phoneHref}>Call {SITE.phone}</a>
+        <a class="btn btn-primary" style="background:#fff;color:var(--brand)" href="/book">Book Online</a>
+      </div>
+    </div>
+  </div>
+</section>

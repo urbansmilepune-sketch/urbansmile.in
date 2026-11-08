@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import { SITE, STATS } from '../../data/site';
+import { STORIES } from '../../data/stories';
+---
+<Base
+  title="Patient Stories & Results | Dental Implants Pune | Urban Smile"
+  description={`${STORIES.length} real patient cases with videos: full mouth and basal implants with fixed teeth in 3 days, for patients from Pune, Mumbai, Thane, Latur and more.`}
+  crumbs={[{ name: 'Patient Stories', url: '/patient-stories' }]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Real Patient Transformations</h1>
+      <p class="lead">Every story here has a video of the patient talking about their treatment. Watch {STATS.videos} more on <a href={SITE.social.youtube} rel="noopener">our YouTube channel</a>.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-3">{STORIES.map((s) => <StoryCard story={s} />)}</div>
+    </div>
+  </section>
+  <Cta heading="Want a Similar Result?" />
+</Base>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { SITE, STATS } from '../data/site';
+import { PRICES, formatINR } from '../data/prices';
+import { AREAS } from '../data/areas';
+import { faqSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'How do I choose a good dentist in Pune for implants?', a: 'Look for an implantologist with many years and cases of experience, CBCT-based planning, transparent written pricing and real patient videos. Ask which implant brand they use and what the warranty covers.' },
+  { q: 'Which clinic in Pune offers full mouth teeth in 3 days?', a: `Urban Smile in Wakad offers fixed full mouth teeth in 3 days using basal and cortical implants, for ${formatINR(PRICES.fullMouth)} all-inclusive.` },
+  { q: 'How much do dental implants cost in Pune?', a: `At Urban Smile, single implants start at ${formatINR(PRICES.implantOnly)} (implant only) or ${formatINR(PRICES.implantCeramicCrown)} with a ceramic crown, and full mouth implants are ${formatINR(PRICES.fullMouth)} with a free CBCT scan.` },
+  { q: 'Do you see patients from outside Pune?', a: 'Yes. Patients regularly travel from Mumbai, Thane, Latur, Wardha, Sindhudurg and other states. The 3-day protocol means one short trip.' },
+  { q: 'Where is the clinic?', a: `${SITE.address.full}. Easy to reach from Hinjewadi, Baner, Pimple Saudagar, Aundh and the rest of PCMC.` },
+];
+const travel = [
+  { name: 'Hinjewadi', min: 5 }, { name: 'Pimple Saudagar', min: 8 }, { name: 'Balewadi', min: 8 }, { name: 'Baner', min: 10 },
+  { name: 'Aundh', min: 12 }, { name: 'Pimpri-Chinchwad', min: 15 }, { name: 'Kothrud', min: 20 },
+];
+const areaLink = (n: string) => AREAS.find((a) => a.name === n)?.slug;
+---
+<Base
+  title="Best Dentist in Pune for Dental Implants | Urban Smile Dental Clinic"
+  description={`Looking for the best dentist in Pune for implants? Dr. Manish Dighade has placed ${STATS.implants} implants in ${STATS.years} years. Full mouth fixed teeth in 3 days, ${STATS.googleRating}★ Google rating, transparent pricing.`}
+  crumbs={[{ name: 'Best Dentist in Pune', url: '/best-dentist-in-pune' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Best Dentist in Pune for Dental Implants</h1>
+      <p class="lead">Urban Smile in Wakad is trusted by {STATS.patients} patients from across Pune, PCMC and Maharashtra. Here is what sets an implant clinic apart, and how we measure up.</p>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call {SITE.phone}</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>What to Look For, and What We Offer</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>Experience</h3><p>{STATS.implants} implants over {STATS.years} years. ICOI member.</p></div>
+        <div class="card"><h3>Speed without shortcuts</h3><p>Full mouth fixed teeth in 3 days with basal and cortical implants.</p></div>
+        <div class="card"><h3>Proof</h3><p>{STATS.videos} patient videos on YouTube you can watch before deciding.</p></div>
+        <div class="card"><h3>Transparent pricing</h3><p>Single implant from {formatINR(PRICES.implantOnly)}, full mouth {formatINR(PRICES.fullMouth)}. Written quotes.</p></div>
+        <div class="card"><h3>Technology</h3><p>CBCT 3D scans and digital planning, free with implants.</p></div>
+        <div class="card"><h3>Complete care</h3><p>Root canal, braces, cosmetic work and general dentistry under one roof.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Serving All of Pune</h2>
+      <p class="section-intro">Approximate drive times to our Wakad clinic:</p>
+      <div class="grid grid-4">
+        {travel.map((t) => {
+          const slug = areaLink(t.name);
+          return slug ? <a class="card" href={`/${slug}`}><h3>{t.name}</h3><p>{t.min} min</p></a> : <div class="card"><h3>{t.name}</h3><p>{t.min} min</p></div>;
+        })}
+      </div>
+    </div>
+  </section>
+  <Faq faqs={faqs} heading="FAQs: Choosing a Dentist in Pune" />
+  <section class="section"><div class="wrap"><p>Helpful: <a href="/blog/cost-of-dental-implants-in-pune">Implant cost guide</a> · <a href="/blog/dental-implants-vs-dentures">Implants vs dentures</a> · <a href="/patient-stories">Patient stories</a></p></div></section>
+  <Cta />
+</Base>

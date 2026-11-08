@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { SITE, STATS, waLink } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'How much can I save with dental treatment in India?', a: 'Typically 60 to 70% compared with the US, UK or Australia. For example, full mouth implants that cost US$25,000 to 40,000 in the US cost a fraction of that here, with comparable materials.' },
+  { q: 'How long should I plan to stay in Pune?', a: 'Single tooth implants: 2 to 3 days. Full mouth implants: 5 to 7 days (the treatment itself takes 3 days, plus a check before you fly). Smile makeovers: 7 to 10 days.' },
+  { q: 'Is it safe to have dental treatment in India?', a: 'Yes. We follow international sterilisation standards, use imported materials and treat patients from the US, UK, Australia and the Middle East.' },
+  { q: 'What about follow-up after I return home?', a: 'You get written aftercare instructions and free video consultations for one year. If you need an in-person check, we can coordinate with a dentist near you.' },
+  { q: 'Do you help with travel arrangements?', a: 'Yes: airport pickup, hotel suggestions near the clinic, scheduling around your flights and sightseeing tips.' },
+];
+---
+<Base
+  title="Dental Tourism in Pune, India | Implants Abroad | Urban Smile"
+  description="Dental tourism in Pune, India: full mouth implants in 3 days and smile makeovers at up to 70% less than the US, UK or Australia. Free online treatment plan."
+  crumbs={[{ name: 'Dental Tourism', url: '/dental-tourism' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">For international patients</p>
+      <h1>World-Class Dental Care in Pune, India</h1>
+      <p class="lead">Patients from 15+ countries come to Urban Smile for implants and smile makeovers, saving up to 70% compared with home. Get a free treatment plan and cost estimate before you book a flight.</p>
+      <ul class="badges"><li>⭐ {STATS.googleRating} rating</li><li>500+ international patients</li><li>Lifetime implant warranty</li></ul>
+      <div class="btn-row"><a class="btn btn-wa" href={waLink('Hi, I am an international patient and would like a treatment plan.')} rel="noopener">WhatsApp Us</a><a class="btn btn-outline" href={`mailto:${SITE.email}?subject=Treatment%20plan%20request`}>Email Your X-rays</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Why Urban Smile</h2>
+      <div class="grid grid-4">
+        <div class="card"><h3>{STATS.years} years</h3><p>{SITE.doctor.name}, ICOI member, {STATS.implants} implants.</p></div>
+        <div class="card"><h3>International standards</h3><p>German and Swiss materials, Class B autoclave sterilisation, single-use instruments.</p></div>
+        <div class="card"><h3>One trip</h3><p>Full mouth implants in 3 days. Most treatments finish in a single visit.</p></div>
+        <div class="card"><h3>Personal coordinator</h3><p>English-speaking staff and one person looking after your trip.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>How It Works</h2>
+      <ol class="steps">
+        <li><h3>Online consultation</h3><p>Send your X-rays or photos. Get a plan and cost estimate.</p></li>
+        <li><h3>Plan your trip</h3><p>We schedule around your flights and suggest hotels.</p></li>
+        <li><h3>Arrive and treat</h3><p>Airport pickup from Pune airport, treatment with daily updates.</p></li>
+        <li><h3>Recover</h3><p>Rest or explore Pune while we monitor healing.</p></li>
+        <li><h3>Follow-up</h3><p>Free video consultations for one year.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Popular Treatments for Visiting Patients</h2>
+      <div class="grid grid-3">
+        <a class="card" href="/dental-implants/full-mouth"><h3>Full Mouth Implants</h3><p>Fixed teeth in 3 days with a lifetime implant warranty.</p></a>
+        <a class="card" href="/smile-makeover"><h3>Smile Makeover</h3><p>Veneers, whitening and cosmetic work with a quick turnaround.</p></a>
+        <a class="card" href="/root-canal"><h3>Root Canal</h3><p>Single-visit, painless treatment.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Dental Tourism FAQs" />
+  <Cta heading="Start Planning Your Dental Trip" text="Send your X-rays on WhatsApp or email and get a free treatment plan with exact costs and timeline." />
+</Base>

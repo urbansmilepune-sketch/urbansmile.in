@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { PRICES, formatINR } from '../data/prices';
+const services = [
+  { name: 'Dental Implants', price: `From ${formatINR(PRICES.implantOnly)}`, text: 'Titanium implants that fuse with the jawbone to replace one, several or all teeth permanently.', href: '/dental-implants' },
+  { name: 'Full Mouth Dental Implants', price: `${formatINR(PRICES.fullMouth)} all-inclusive`, text: 'Fixed teeth for both jaws in about 3 days.', href: '/dental-implants/full-mouth' },
+  { name: 'Basal Implants', price: `${formatINR(PRICES.basalPerImplant)} per implant`, text: 'For bone loss, with no bone graft and teeth loaded immediately.', href: '/dental-implants/basal-implants' },
+  { name: '3-Day Dental Implants', price: `From ${formatINR(PRICES.singleJaw)} per jaw`, text: 'Fixed teeth within 72 hours.', href: '/dental-implants/3-day-implants' },
+  { name: 'Single Tooth Implant', price: `From ${formatINR(PRICES.implantOnly)}`, text: 'Replace one tooth without grinding the teeth beside it.', href: '/dental-implants/single-tooth' },
+  { name: 'Root Canal Treatment', price: `From ${formatINR(PRICES.rootCanal)}`, text: 'Painless, mostly single-visit treatment with rotary instruments.', href: '/root-canal' },
+  { name: 'Braces and Aligners', price: `From ${formatINR(PRICES.metalBraces)}`, text: 'Metal braces, ceramic braces or clear aligners for all ages.', href: '/orthodontics' },
+  { name: 'Smile Makeover', price: 'Custom quote', text: 'Veneers, whitening, bonding and digital smile design.', href: '/smile-makeover' },
+  { name: 'Wisdom Tooth Removal', price: `From ${formatINR(PRICES.wisdomTooth)}`, text: 'Same-day extraction with quick recovery.', href: '/book' },
+  { name: 'Dental Tourism', price: 'Free treatment plan', text: 'Planning, airport pickup and video follow-ups for international patients.', href: '/dental-tourism' },
+];
+---
+<Base
+  title="Dental Services in Pune | Implants, Braces, Root Canal | Urban Smile"
+  description={`All dental treatments at Urban Smile, Wakad, Pune, with prices: implants from ${formatINR(PRICES.implantOnly)}, full mouth ${formatINR(PRICES.fullMouth)}, root canal from ${formatINR(PRICES.rootCanal)}, braces from ${formatINR(PRICES.metalBraces)}.`}
+  crumbs={[{ name: 'Services', url: '/services' }]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Our Dental Services</h1>
+      <p class="lead">From a single filling to a full set of fixed teeth, everything is done in one clinic in Wakad.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-2">
+        {services.map((s) => (
+          <a class="card" href={s.href}><h3>{s.name}</h3><p>{s.text}</p><p class="price">{s.price}</p></a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Cta heading="Not Sure Which Treatment You Need?" text="Book a free consultation and we'll explain your options and exact costs." />
+</Base>

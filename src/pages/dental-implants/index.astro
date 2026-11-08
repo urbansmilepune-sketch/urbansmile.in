@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import Cta from '../../components/Cta.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import { SITE, STATS } from '../../data/site';
+import { PRICES, formatINR } from '../../data/prices';
+import { faqSchema } from '../../lib/schema';
+
+const faqs = [
+  { q: 'What is the cost of dental implants in Pune?', a: `A single implant starts at ${formatINR(PRICES.implantOnly)} (implant only) or ${formatINR(PRICES.implantCeramicCrown)} with a ceramic crown. A basal implant is ${formatINR(PRICES.basalPerImplant)} per implant. Full mouth fixed teeth for both jaws cost ${formatINR(PRICES.fullMouth)}, all-inclusive.` },
+  { q: 'Why is a basal implant priced differently from a single implant?', a: `The ${formatINR(PRICES.implantOnly)} price is for a conventional implant fixture alone, with the crown charged separately. A basal implant is a different, longer implant that anchors in dense cortical bone so it can carry teeth immediately without bone grafting, and it is priced per implant.` },
+  { q: 'How long do dental implants last?', a: 'The titanium implant fuses with your jawbone and can last a lifetime with good care. We give a lifetime warranty on the implant fixture.' },
+  { q: 'Is the surgery painful?', a: 'It is done under local anaesthesia, so it is painless during the procedure. Discomfort afterwards is usually mild and lasts 2 to 3 days.' },
+  { q: 'Am I a candidate for implants?', a: 'Most adults with missing teeth are. If you have bone loss, diabetes (controlled) or have been refused implants elsewhere, basal implants are often still possible. Your free consultation and CBCT scan decide the best option.' },
+];
+---
+<Base
+  title={`Dental Implants in Pune | Starting ${formatINR(PRICES.implantOnly)} | Urban Smile`}
+  description={`Compare dental implant options and prices in Pune: single implant from ${formatINR(PRICES.implantOnly)}, basal implant ${formatINR(PRICES.basalPerImplant)}, full mouth ${formatINR(PRICES.fullMouth)}. ${STATS.implants} implants, ${STATS.successRate} success, free CBCT scan.`}
+  crumbs={[{ name: 'Dental Implants', url: '/dental-implants' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Permanent tooth replacement</p>
+      <h1>Dental Implants in Pune</h1>
+      <p class="lead">{SITE.doctor.name} has placed {STATS.implants} implants with a {STATS.successRate} success rate. Choose from single implants, basal implants for bone loss, or full mouth fixed teeth in 3 days.</p>
+      <ul class="badges"><li>Free CBCT scan</li><li>Lifetime implant warranty</li><li>EMI available</li><li>{STATS.years} years experience</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Which Implant Is Right for You?</h2>
+      <div class="grid grid-2">
+        <a class="card" href="/dental-implants/full-mouth"><span class="tag">Most popular</span><h3>Full Mouth Implants</h3><p>All teeth missing or failing? Fixed teeth for both jaws in a 3-day treatment.</p><p class="price">{formatINR(PRICES.fullMouth)} all-inclusive</p></a>
+        <a class="card" href="/dental-implants/basal-implants"><h3>Basal Implants</h3><p>For bone loss. Anchors in dense basal bone, so no bone graft is needed.</p><p class="price">{formatINR(PRICES.basalPerImplant)} per implant</p></a>
+        <a class="card" href="/dental-implants/3-day-implants"><h3>3-Day Implants</h3><p>Fixed teeth in about 72 hours. The quickest route from missing teeth to a full smile.</p><p class="price">{formatINR(PRICES.singleJaw)} per jaw, {formatINR(PRICES.fullMouth)} full mouth</p></a>
+        <a class="card" href="/dental-implants/single-tooth"><h3>Single Tooth Implant</h3><p>One missing tooth, replaced without touching the teeth beside it.</p><p class="price">From {formatINR(PRICES.implantOnly)}</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft"><div class="wrap"><PriceTable /></div></section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Why Choose Urban Smile for Implants</h2>
+      <div class="grid grid-4">
+        <div class="card"><h3>{STATS.years} years</h3><p>Focused on implant surgery since 2016.</p></div>
+        <div class="card"><h3>Lifetime warranty</h3><p>On the implant fixture.</p></div>
+        <div class="card"><h3>Teeth in 3 days</h3><p>Immediate loading for most full mouth cases.</p></div>
+        <div class="card"><h3>{STATS.successRate} success</h3><p>Planned on a CBCT 3D scan, free with treatment.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Dental Implant FAQs" />
+  <section class="section"><div class="wrap"><p>Read more: <a href="/blog/cost-of-dental-implants-in-pune">Cost of dental implants in Pune</a> · <a href="/blog/dental-implants-vs-dentures">Implants vs dentures</a> · <a href="/patient-stories">Patient stories</a></p></div></section>
+  <Cta />
+</Base>

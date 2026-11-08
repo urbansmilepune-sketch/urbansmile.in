@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import Cta from '../../components/Cta.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import { SITE, STATS } from '../../data/site';
+import { PRICES, formatINR } from '../../data/prices';
+import { STORIES } from '../../data/stories';
+import { faqSchema } from '../../lib/schema';
+
+// This page replaces both /teeth-in-3-days and /dental-implants/3-day-implants (the old one redirects here).
+const faqs = [
+  { q: 'What does "teeth in 3 days" mean?', a: 'You get fixed teeth within 72 hours of your first visit, with no removable dentures in between.' },
+  { q: 'How is it possible so fast?', a: 'We use basal and cortical implants that anchor in dense bone. They are stable enough to carry teeth immediately, so there is no months-long wait for healing.' },
+  { q: 'Is it safe?', a: `The technique has been used worldwide for over 20 years, and ${SITE.doctor.name} has done ${STATS.implants} implant procedures.` },
+  { q: 'Is it painful?', a: 'Surgery is under local anaesthesia. Afterwards it feels like an extraction for a few days, and most patients eat soft food the same day.' },
+  { q: 'How much does it cost?', a: `Single jaw (upper or lower) starts at ${formatINR(PRICES.singleJaw)} for 6 to 8 implants with fixed teeth. Full mouth (both jaws) is ${formatINR(PRICES.fullMouth)} all-inclusive, with zero down payment EMI available.` },
+  { q: 'Who is eligible?', a: 'Most adults needing full mouth rehabilitation, including people with bone loss, controlled diabetes and seniors. We treat patients from about 35 to 80+.' },
+  { q: 'Will I have teeth while healing?', a: 'Yes. Temporary fixed teeth go in on day 3 and are replaced with permanent ceramic teeth after 3 to 6 months.' },
+  { q: 'I live outside Pune. When can I travel home?', a: 'Most patients travel 1 to 2 days after day 3. Follow-ups can be done by video call.' },
+];
+const stories = STORIES.slice(0, 6);
+---
+<Base
+  title="Teeth in 3 Days in Pune | 3-Day Dental Implants | Urban Smile"
+  description={`Get fixed teeth in 3 days in Pune with 3-day dental implants: no bone graft, no dentures in between. Single jaw from ${formatINR(PRICES.singleJaw)}, full mouth ${formatINR(PRICES.fullMouth)}. Free consultation and CBCT scan.`}
+  crumbs={[{ name: 'Dental Implants', url: '/dental-implants' }, { name: '3-Day Implants', url: '/dental-implants/3-day-implants' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Fixed teeth in 72 hours</p>
+      <h1>Teeth in 3 Days: 3-Day Dental Implants in Pune</h1>
+      <p class="lead">Walk in with missing teeth or loose dentures and walk out 3 days later with fixed teeth. No bone graft and no months of waiting.</p>
+      <ul class="badges"><li>3 to 4 visits</li><li>No bone graft</li><li>Free CBCT scan (worth {formatINR(PRICES.cbctValue)})</li><li>Zero down payment EMI</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Your 3-Day Treatment</h2>
+      <ol class="steps">
+        <li><h3>Day 1: Scan and plan</h3><p>Examination, CBCT 3D scan, treatment planning and preparation.</p></li>
+        <li><h3>Day 2: Implant surgery</h3><p>Implants placed under local anaesthesia (1 to 2 hours). Impressions taken for your teeth.</p></li>
+        <li><h3>Day 3: Fixed teeth</h3><p>Fixed teeth fitted and bite adjusted. You go home with a full smile.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>3-Day Implants vs Traditional Implants</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th>Traditional</th><th>3-day implants</th></tr></thead>
+        <tbody>
+          <tr><td>Treatment time</td><td>3 to 9 months</td><td>3 days</td></tr>
+          <tr><td>Bone graft</td><td>Often needed</td><td>Not needed</td></tr>
+          <tr><td>Visits</td><td>8 to 10</td><td>3 to 4</td></tr>
+          <tr><td>Surgeries</td><td>2 to 3</td><td>1</td></tr>
+          <tr><td>Teeth</td><td>After healing</td><td>Immediately</td></tr>
+          <tr><td>Full mouth cost</td><td>{formatINR(PRICES.traditionalFullMouth)}+</td><td>{formatINR(PRICES.fullMouth)}</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>Who Can Get Teeth in 3 Days?</h2>
+        <ul class="ticks">
+          <li>Several or all teeth missing</li>
+          <li>Loose or painful dentures</li>
+          <li>Badly damaged or decayed teeth</li>
+          <li>Failed earlier implants</li>
+          <li>Bone loss</li>
+          <li>Controlled diabetes and older patients</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Teeth in 3 Days Prices</h3>
+        <p>Single jaw (upper or lower, 6–8 implants): <strong class="price">{formatINR(PRICES.singleJaw)}</strong></p>
+        <p>Both jaws (full mouth): <strong class="price">{formatINR(PRICES.fullMouth)}</strong> all-inclusive</p>
+        <p class="small">Lifetime warranty on the implant fixture. Fixed teeth usually last 15 to 20 years.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft"><div class="wrap"><h2>Patients Who Got Teeth in 3 Days</h2><div class="grid grid-3">{stories.map((s) => <StoryCard story={s} />)}</div><p style="margin-top:16px"><a href="/patient-stories">All patient stories →</a></p></div></section>
+
+  <Faq faqs={faqs} heading="Teeth in 3 Days FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/dental-implants/basal-implants">Basal implants</a> · <a href="/dental-implants/full-mouth">Full mouth implants</a> · <a href="/dental-tourism">Travelling from outside Pune</a></p><p class="disclaimer">Results vary between patients. Suitability and timeline are confirmed after examination and CBCT scan.</p></div></section>
+  <Cta heading="Ready to Get Fixed Teeth in 3 Days?" />
+</Base>

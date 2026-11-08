@@ -1,0 +1,23 @@
+---
+// Shows the video thumbnail and only loads YouTube when tapped. Keeps pages fast.
+import { ytThumb } from '../lib/cloudinary';
+interface Props { id: string; title: string }
+const { id, title } = Astro.props;
+---
+<button class="yt" type="button" data-yt={id} aria-label={`Play video: ${title}`}>
+  <img src={ytThumb(id)} alt={title} loading="lazy" width="480" height="360" />
+  <span class="play"></span>
+</button>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('button.yt').forEach((b) => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.yt;
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      f.title = b.getAttribute('aria-label') ?? 'Video';
+      b.replaceChildren(f);
+    }, { once: true });
+  });
+</script>

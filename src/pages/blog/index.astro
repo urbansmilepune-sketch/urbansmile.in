@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base
+  title="Dental Health Blog | Implants, Costs & Care Tips | Urban Smile"
+  description="Articles by Dr. Manish Dighade on dental implant costs, implants vs dentures, basal implants and dental care, from Urban Smile Dental Clinic, Pune."
+  crumbs={[{ name: 'Blog', url: '/blog' }]}
+>
+  <section class="hero"><div class="wrap"><h1>Dental Health Blog</h1><p class="lead">Straight answers about implants, costs and treatment from Dr. Manish Dighade.</p></div></section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-2">
+        {posts.map((p) => (
+          <a class="card" href={`/blog/${p.id}`}>
+            <p class="small">{fmt(p.data.date)}</p>
+            <h2 style="font-size:1.25rem">{p.data.title}</h2>
+            <p>{p.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

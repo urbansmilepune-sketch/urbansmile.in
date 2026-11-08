@@ -1,0 +1,43 @@
+---
+import { SITE, waLink } from '../data/site';
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/dental-implants', label: 'Dental Implants' },
+  { href: '/services', label: 'Services' },
+  { href: '/patient-stories', label: 'Patient Stories' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<div class="topbar">
+  <div class="wrap">
+    <span class="hours">{SITE.hours.label} · Wakad, Pune</span>
+    <span><a href={SITE.phoneHref}>📞 {SITE.phone}</a></span>
+  </div>
+</div>
+<header class="site">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label={`${SITE.name} home`}>
+      <img src="/favicon.svg" alt="" width="32" height="32" />
+      Urban<span>Smile</span>
+    </a>
+    <input type="checkbox" id="menu" class="menu-toggle" aria-hidden="true" hidden />
+    <label for="menu" class="menu-btn" aria-label="Open menu">☰ Menu</label>
+    <nav class="main" aria-label="Main">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+        <li><a href="/book" class="btn btn-primary btn-sm">Book Appointment</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="mobile-bar">
+  <a class="btn btn-outline" href={SITE.phoneHref}>Call</a>
+  <a class="btn btn-wa" href={waLink()} rel="noopener">WhatsApp</a>
+  <a class="btn btn-primary" href="/book">Book</a>
+</div>

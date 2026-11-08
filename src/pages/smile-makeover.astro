@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { SITE } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'What is a smile makeover?', a: 'A plan that combines cosmetic treatments such as veneers, whitening, bonding, crowns and gum contouring, designed around what you want your smile to look like.' },
+  { q: 'How long does it take?', a: 'Whitening plus bonding takes 1 to 2 visits. A makeover with veneers usually takes 2 to 3 weeks.' },
+  { q: 'Is it painful?', a: 'The procedures are minimally invasive and done under local anaesthesia where needed. Most patients feel little or no discomfort.' },
+  { q: 'How long do results last?', a: 'Professional whitening lasts 1 to 3 years, bonding 5 to 10 years and good-quality veneers 10 to 15 years or more.' },
+  { q: 'How much does a smile makeover cost?', a: 'It depends on which treatments you need. You get a written quote after your consultation and digital smile design.' },
+  { q: 'Am I a good candidate?', a: 'Most adults with healthy teeth and gums are. We check your oral health first and treat any decay or gum problems before cosmetic work.' },
+];
+---
+<Base
+  title="Smile Makeover in Pune | Veneers & Whitening | Urban Smile"
+  description="Smile makeover in Wakad, Pune: veneers, teeth whitening, bonding, gum contouring and digital smile design. Preview your new smile before treatment. Free consultation."
+  crumbs={[{ name: 'Smile Makeover', url: '/smile-makeover' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Cosmetic dentistry</p>
+      <h1>Smile Makeover in Pune</h1>
+      <p class="lead">Veneers, whitening and bonding combined into one plan for a natural-looking smile. See a digital preview before any treatment starts.</p>
+      <ul class="badges"><li>Natural results</li><li>Preview before treatment</li><li>Custom design</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Smile Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Treatments in a Smile Makeover</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>Veneers</h3><p>Thin porcelain or composite shells that change the shape, colour and line of front teeth. Stain-resistant, last 10 to 15 years.</p></div>
+        <div class="card"><h3>Teeth Whitening</h3><p>In-clinic whitening, up to 8 shades lighter in one session.</p></div>
+        <div class="card"><h3>Bonding</h3><p>Tooth-coloured resin to fix chips, gaps and stains in a single visit.</p></div>
+        <div class="card"><h3>Gum Contouring</h3><p>Evens out an uneven or "gummy" gum line.</p></div>
+        <div class="card"><h3>Digital Smile Design</h3><p>See your new smile on screen before treatment begins.</p></div>
+        <div class="card"><h3>Crowns</h3><p>Custom caps for damaged or discoloured teeth.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Your Smile Makeover Journey</h2>
+      <ol class="steps">
+        <li><h3>Consultation</h3><p>Exam, photos and digital smile design.</p></li>
+        <li><h3>Plan</h3><p>Treatments and cost agreed with you.</p></li>
+        <li><h3>Preview</h3><p>Digital preview or trial mock-up.</p></li>
+        <li><h3>Treatment</h3><p>One or several visits.</p></li>
+        <li><h3>Reveal</h3><p>Your new smile, plus care advice.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Smile Makeover FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/orthodontics">Braces and aligners</a> · <a href="/dental-implants">Dental implants</a> · <a href="/dental-tourism">Dental tourism</a></p></div></section>
+  <Cta heading="Your New Smile Starts Here" />
+</Base>

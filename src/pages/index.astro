@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import StoryCard from '../components/StoryCard.astro';
+import YouTube from '../components/YouTube.astro';
+import { SITE, STATS, waLink } from '../data/site';
+import { PRICES, formatINR } from '../data/prices';
+import { STORIES } from '../data/stories';
+import { faqSchema, doctorSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'How much does a dental implant cost in Pune at Urban Smile?', a: `A single implant starts at ${formatINR(PRICES.implantOnly)} for the implant only, or ${formatINR(PRICES.implantCeramicCrown)} with a ceramic crown. Full mouth fixed teeth for both jaws cost ${formatINR(PRICES.fullMouth)}, all-inclusive. A CBCT 3D scan is free with implant treatment.` },
+  { q: 'Can I really get fixed teeth in 3 days?', a: 'Yes, for most full mouth cases. We use basal and cortical implants that anchor in dense bone, so fixed teeth can be attached within 72 hours. Suitability is confirmed after your examination and scan.' },
+  { q: 'Is implant treatment painful?', a: 'The surgery is done under local anaesthesia, so you do not feel pain during it. Most patients have mild discomfort for 2 to 3 days afterwards, similar to an extraction.' },
+  { q: 'How long do dental implants last?', a: 'The titanium implant fuses with the jawbone and is designed to last 20 to 25 years or more with good care. The fixed teeth on top usually last 15 to 20 years. We give a lifetime warranty on the implant fixture.' },
+  { q: 'Do I need an appointment, or can I walk in?', a: `Walk-ins are welcome ${SITE.hours.label}. Booking ahead by phone, WhatsApp or our online form means no waiting.` },
+  { q: 'Where is the clinic?', a: `${SITE.address.full}. Free parking is available.` },
+];
+
+const featured = STORIES.slice(0, 6);
+---
+<Base
+  title="Dental Implants in Pune | Fixed Teeth in 3 Days | Urban Smile"
+  description={`Full mouth dental implants in 3 days, basal implants without bone graft and single implants from ${formatINR(PRICES.implantOnly)} in Wakad, Pune. ${STATS.implants} implants by Dr. Manish Dighade. Free CBCT scan.`}
+  schema={[faqSchema(faqs), doctorSchema()]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{SITE.tagline}</p>
+      <h1>Fixed Teeth in 3 Days with Dental Implants in Pune</h1>
+      <p class="lead">Lost teeth, loose dentures or told you don't have enough bone? {SITE.doctor.name} has placed {STATS.implants} implants in {STATS.years} years and gives most full mouth patients fixed teeth within 72 hours, without bone grafting.</p>
+      <ul class="badges">
+        <li>⭐ {STATS.googleRating} Google rating ({STATS.googleReviews} reviews)</li>
+        <li>{STATS.implants} implants</li>
+        <li>Free CBCT scan</li>
+        <li>EMI available</li>
+        <li>Lifetime implant warranty</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/book">Book Free Consultation</a>
+        <a class="btn btn-wa" href={waLink()} rel="noopener">WhatsApp Us</a>
+        <a class="btn btn-outline" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="stats">
+        <div><strong>{STATS.years}</strong><span>Years of experience</span></div>
+        <div><strong>{STATS.implants}</strong><span>Implants placed</span></div>
+        <div><strong>{STATS.patients}</strong><span>Happy patients</span></div>
+        <div><strong>{STATS.googleRating}★</strong><span>Google rating</span></div>
+        <div><strong>{STATS.videos}</strong><span>Patient videos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Dental Implant Treatments</h2>
+      <p class="section-intro">Every implant plan starts with a free CBCT 3D scan so we know exactly how much bone you have and which implant suits you.</p>
+      <div class="grid grid-2">
+        <a class="card" href="/dental-implants/full-mouth">
+          <span class="tag">Most popular</span>
+          <h3>Full Mouth Dental Implants</h3>
+          <p>Fixed teeth for both jaws in 3 days. CBCT scan, implants, temporary and final ceramic teeth and follow-ups included.</p>
+          <p class="price">{formatINR(PRICES.fullMouth)} all-inclusive</p>
+        </a>
+        <a class="card" href="/dental-implants/basal-implants">
+          <h3>Basal Implants</h3>
+          <p>For bone loss, diabetics and patients turned away elsewhere. No bone graft, teeth fixed within 72 hours.</p>
+          <p class="price">{formatINR(PRICES.basalPerImplant)} per implant</p>
+        </a>
+        <a class="card" href="/dental-implants/3-day-implants">
+          <h3>3-Day Implants (Teeth in 3 Days)</h3>
+          <p>Consultation and scan on day 1, surgery on day 2, fixed teeth on day 3. Ideal if you are travelling from outside Pune.</p>
+          <p class="price">From {formatINR(PRICES.singleJaw)} per jaw</p>
+        </a>
+        <a class="card" href="/dental-implants/single-tooth">
+          <h3>Single Tooth Implant</h3>
+          <p>Replace one missing tooth without grinding the teeth next to it, as a bridge would.</p>
+          <p class="price">From {formatINR(PRICES.implantOnly)} (implant only), {formatINR(PRICES.implantCeramicCrown)} with ceramic crown</p>
+        </a>
+      </div>
+      <p style="margin-top:20px"><a href="/dental-implants">Compare all implant options and prices →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Other Dental Treatments</h2>
+      <div class="grid grid-4">
+        <a class="card" href="/root-canal"><h3>Root Canal</h3><p>Painless, mostly single-visit RCT. From {formatINR(PRICES.rootCanal)}.</p></a>
+        <a class="card" href="/orthodontics"><h3>Braces &amp; Aligners</h3><p>Metal from {formatINR(PRICES.metalBraces)}, ceramic from {formatINR(PRICES.ceramicBraces)}, clear aligners.</p></a>
+        <a class="card" href="/smile-makeover"><h3>Smile Makeover</h3><p>Veneers, whitening, bonding and digital smile design.</p></a>
+        <a class="card" href="/dental-tourism"><h3>Dental Tourism</h3><p>Treatment plans and travel help for patients from abroad.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Real Patients, Fixed Teeth in 3 Days</h2>
+      <p class="section-intro">Watch patients from Pune, Mumbai, Thane, Latur and Wardha talk about their treatment. We have {STATS.videos} patient videos on <a href={SITE.social.youtube} rel="noopener">our YouTube channel</a>.</p>
+      <div style="max-width:760px;margin-bottom:28px"><YouTube id={STORIES[0].video!} title={STORIES[0].headline} /></div>
+      <div class="grid grid-3">
+        {featured.map((s) => <StoryCard story={s} />)}
+      </div>
+      <p style="margin-top:20px"><a class="btn btn-outline" href="/patient-stories">See all {STORIES.length} patient cases</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>Meet {SITE.doctor.name}</h2>
+        <p>{SITE.doctor.qualifications}. Dr. Dighade has practised since {SITE.doctor.since} and has focused on implants since 2016. He founded Urban Smile in 2018 and now handles complex cases that other clinics often refuse: full mouth rehabilitation, basal implants for severe bone loss and fixed teeth in 3 days.</p>
+        <ul class="ticks">
+          <li>{STATS.implants} implants placed</li>
+          <li>Member, International Congress of Oral Implantologists (ICOI)</li>
+          <li>CBCT-based digital planning for every implant case</li>
+        </ul>
+        <a href="/about">More about Dr. Dighade →</a>
+      </div>
+      <div class="card">
+        <h3>Visit Us in Wakad</h3>
+        <p>{SITE.address.full}</p>
+        <p><strong>Hours:</strong> {SITE.hours.label}<br /><strong>Parking:</strong> Free<br /><strong>Phone:</strong> <a href={SITE.phoneHref}>{SITE.phone}</a></p>
+        <p class="small">Patients come from Wakad, Hinjewadi, Baner, Pimple Saudagar, Pimple Nilakh, Aundh, Balewadi, Kothrud and across Pimpri-Chinchwad.</p>
+        <a class="btn btn-outline btn-sm" href={SITE.mapsUrl} rel="noopener">Get directions</a>
+      </div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} />
+  <Cta />
+</Base>

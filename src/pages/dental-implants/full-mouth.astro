@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import Cta from '../../components/Cta.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import { SITE, STATS } from '../../data/site';
+import { PRICES, formatINR } from '../../data/prices';
+import { STORIES } from '../../data/stories';
+import { faqSchema } from '../../lib/schema';
+
+const faqs = [
+  { q: 'What does the full mouth implant package include?', a: `For ${formatINR(PRICES.fullMouth)} you get the CBCT 3D scan, implants in both jaws, temporary fixed teeth, permanent ceramic teeth, all follow-up visits and a lifetime warranty on the implants.` },
+  { q: 'Will I need a bone graft?', a: 'In most cases no. We use basal and cortical implants that anchor in dense bone, which avoids grafting even when there is significant bone loss.' },
+  { q: 'Can I eat on the first day?', a: 'Yes, soft food. You leave with fixed temporary teeth, so you can eat and speak normally from the start, then move to normal food as healing allows.' },
+  { q: 'How painful is it?', a: 'Surgery is under local anaesthesia. Most patients have mild discomfort for 2 to 3 days.' },
+  { q: 'Can I do one jaw only?', a: `Yes. Single jaw fixed teeth (upper or lower) start at ${formatINR(PRICES.singleJaw)}.` },
+];
+const stories = STORIES.filter((s) => s.treatment !== 'Upper Arch Implants').slice(0, 3);
+---
+<Base
+  title={`Full Mouth Dental Implants Pune | ${formatINR(PRICES.fullMouth)} All-Inclusive`}
+  description={`Full mouth dental implants in Pune for ${formatINR(PRICES.fullMouth)} all-inclusive. Fixed teeth for both jaws in 3 days, usually without bone graft. CBCT scan, ceramic teeth and lifetime implant warranty included.`}
+  crumbs={[{ name: 'Dental Implants', url: '/dental-implants' }, { name: 'Full Mouth Implants', url: '/dental-implants/full-mouth' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{formatINR(PRICES.fullMouth)} all-inclusive</p>
+      <h1>Full Mouth Dental Implants in Pune</h1>
+      <p class="lead">Replace all your teeth with fixed teeth that look and feel natural, in just 3 days. No loose dentures, and in most cases no bone graft.</p>
+      <ul class="badges"><li>Both jaws</li><li>Fixed teeth in 3 days</li><li>Lifetime implant warranty</li><li>EMI available</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>What's Included</h2>
+        <ul class="ticks">
+          <li>CBCT 3D scan and digital treatment planning</li>
+          <li>Implants for both upper and lower jaws</li>
+          <li>Temporary fixed teeth on day 3</li>
+          <li>Permanent ceramic teeth after healing</li>
+          <li>All follow-up visits</li>
+          <li>Lifetime warranty on the implants</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Prices</h3>
+        <p>Both jaws (full mouth): <strong class="price">{formatINR(PRICES.fullMouth)}</strong></p>
+        <p>Single jaw (upper or lower): <strong class="price">{formatINR(PRICES.singleJaw)}</strong></p>
+        <p class="small">Conventional full mouth implants with grafting typically cost {formatINR(PRICES.traditionalFullMouth)}+ and take 6 to 9 months.</p>
+        <a href="/dental-implants">See all implant prices →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Treatment Timeline</h2>
+      <ol class="steps">
+        <li><h3>Day 1: Consultation</h3><p>Examination, CBCT 3D scan and treatment plan.</p></li>
+        <li><h3>Day 2: Implant surgery</h3><p>Implants placed under local anaesthesia, impressions taken.</p></li>
+        <li><h3>Day 3: Fixed teeth</h3><p>Temporary fixed teeth attached and bite adjusted. You go home smiling.</p></li>
+        <li><h3>3 to 6 months: Final teeth</h3><p>After healing, permanent ceramic teeth are fitted.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Full Mouth Implant Patient Stories</h2>
+      <div class="grid grid-3">{stories.map((s) => <StoryCard story={s} />)}</div>
+      <p style="margin-top:16px"><a href="/patient-stories">All patient stories →</a></p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Full Mouth Implant FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/dental-implants/basal-implants">Basal implants</a> · <a href="/dental-implants/3-day-implants">3-day implants</a> · <a href="/dental-implants/single-tooth">Single tooth implant</a> · <a href="/blog/cost-of-dental-implants-in-pune">Implant cost guide</a></p><p class="disclaimer">Results vary between patients. Suitability and timeline are confirmed after examination and CBCT scan.</p></div></section>
+  <Cta />
+</Base>

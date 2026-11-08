@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import BookingForm from '../components/BookingForm.astro';
+import { SITE, waLink } from '../data/site';
+---
+<Base
+  title="Book a Dental Appointment in Wakad, Pune | Urban Smile"
+  description="Book a free consultation at Urban Smile Dental Clinic, Wakad, Pune. Pick a date and time online, or call / WhatsApp +91 9272 097 210."
+  crumbs={[{ name: 'Book Appointment', url: '/book' }]}
+>
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h1>Book Your Appointment</h1>
+        <p class="section-intro">Fill in the form and we'll call you to confirm a time. Consultation is free for implant patients.</p>
+        <BookingForm type="appointment" />
+      </div>
+      <aside class="card">
+        <h2 style="font-size:1.3rem">Prefer to talk?</h2>
+        <p><a class="btn btn-primary" href={SITE.phoneHref}>Call {SITE.phone}</a></p>
+        <p><a class="btn btn-wa" href={waLink()} rel="noopener">WhatsApp Us</a></p>
+        <p><strong>Hours:</strong> {SITE.hours.label}<br />Walk-ins welcome.</p>
+        <p>{SITE.address.full}</p>
+        <a href={SITE.mapsUrl} rel="noopener">Get directions →</a>
+      </aside>
+    </div>
+  </section>
+</Base>

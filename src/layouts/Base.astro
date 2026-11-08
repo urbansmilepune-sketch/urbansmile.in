@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+import { dentistSchema, breadcrumbSchema } from '../lib/schema';
+
+interface Props {
+  title: string; // full <title>; the brand is added once if missing
+  description: string;
+  crumbs?: { name: string; url: string }[]; // without Home
+  schema?: object[];
+  noindex?: boolean;
+  ogType?: string;
+  image?: string;
+}
+
+const { title, description, crumbs, schema = [], noindex = false, ogType = 'website', image } = Astro.props;
+const fullTitle = title.includes(SITE.shortName) ? title : `${title} | ${SITE.name}`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = SITE.url + (path === '/' ? '' : path);
+const ogImage = image ?? `${SITE.url}/og.png`;
+const allCrumbs = crumbs ? [{ name: 'Home', url: '/' }, ...crumbs] : null;
+const jsonLd = [dentistSchema(), ...(allCrumbs ? [breadcrumbSchema(allCrumbs)] : []), ...schema];
+---
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#0b6e6e" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="geo.region" content="IN-MH" />
+    <meta name="geo.placename" content="Wakad, Pune" />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+    {jsonLd.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    {allCrumbs && <div class="wrap"><Breadcrumbs items={allCrumbs} /></div>}
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

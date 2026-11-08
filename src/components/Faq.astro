@@ -1,0 +1,18 @@
+---
+// Renders the FAQ list. Pass the same array to faqSchema() in the page so Google sees it too.
+interface Props { faqs: { q: string; a: string }[]; heading?: string }
+const { faqs, heading = 'Frequently Asked Questions' } = Astro.props;
+---
+<section class="section soft">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <div class="faq">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <div class="answer"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

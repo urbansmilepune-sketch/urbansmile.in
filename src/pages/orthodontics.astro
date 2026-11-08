@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { SITE } from '../data/site';
+import { PRICES, formatINR } from '../data/prices';
+import { faqSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'How much do braces cost in Pune?', a: `Metal braces start at ${formatINR(PRICES.metalBraces)} and ceramic braces at ${formatINR(PRICES.ceramicBraces)}. Clear aligners are quoted after a scan. EMI is available.` },
+  { q: 'How long does orthodontic treatment take?', a: 'Metal and ceramic braces usually take 18 to 24 months. Clear aligners take 6 to 18 months. You get an exact timeline at your consultation.' },
+  { q: 'Are braces painful?', a: 'Mild soreness for a few days after fitting or adjustments is normal and settles with ordinary pain relief.' },
+  { q: 'Can adults get braces?', a: 'Yes, there is no age limit. Many adults choose ceramic braces or clear aligners because they are less visible.' },
+  { q: 'What foods should I avoid with braces?', a: 'Avoid hard, sticky and crunchy foods such as nuts, ice, toffee and chewing gum. Aligners are removable, so they have no food restrictions.' },
+  { q: 'How do I look after my braces?', a: 'Brush after every meal, use an interdental brush, floss daily with a threader and keep every adjustment visit. Wear aligners 20 to 22 hours a day and clean them daily.' },
+];
+---
+<Base
+  title="Braces & Aligners in Pune | Orthodontic Treatment | Urban Smile"
+  description={`Orthodontic treatment in Wakad, Pune: metal braces from ${formatINR(PRICES.metalBraces)}, ceramic braces from ${formatINR(PRICES.ceramicBraces)} and clear aligners. All ages, EMI available, free consultation.`}
+  crumbs={[{ name: 'Orthodontics', url: '/orthodontics' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Straighten your smile</p>
+      <h1>Braces and Clear Aligners in Pune</h1>
+      <p class="lead">Metal braces, ceramic braces and clear aligners for children, teens and adults. Free consultation and EMI available.</p>
+      <ul class="badges"><li>All ages</li><li>EMI available</li><li>Free consultation</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Choose Your Treatment</h2>
+      <div class="grid grid-3">
+        <div class="card"><span class="tag">Most popular</span><h3>Metal Braces</h3><p>The most affordable and effective option for every kind of alignment problem, including severe crowding and bite issues.</p><p class="price">From {formatINR(PRICES.metalBraces)}</p></div>
+        <div class="card"><h3>Ceramic Braces</h3><p>Tooth-coloured brackets that are much less visible. A favourite with working adults.</p><p class="price">From {formatINR(PRICES.ceramicBraces)}</p></div>
+        <div class="card"><h3>Clear Aligners</h3><p>Nearly invisible, removable trays. Best for mild to moderate cases, with no food restrictions.</p><p class="price">Quote after scan</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Who Can Benefit</h2>
+      <div class="grid grid-4">
+        <div class="card"><h3>Crooked teeth</h3><p>Overlapping or twisted teeth.</p></div>
+        <div class="card"><h3>Gaps</h3><p>Spaces between teeth.</p></div>
+        <div class="card"><h3>Overbite / underbite</h3><p>Upper or lower teeth sticking out too far.</p></div>
+        <div class="card"><h3>Crowding</h3><p>Not enough room for all teeth.</p></div>
+      </div>
+      <h2 style="margin-top:40px">Your Orthodontic Journey</h2>
+      <ol class="steps">
+        <li><h3>Consultation</h3><p>Exam, X-rays and digital scan.</p></li>
+        <li><h3>Custom plan</h3><p>Timeline, cost and expected result.</p></li>
+        <li><h3>Fitting</h3><p>Braces fitted or aligners delivered.</p></li>
+        <li><h3>Adjustments</h3><p>Monthly visits to track progress.</p></li>
+        <li><h3>Retainers</h3><p>Keep your new smile in place.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Braces and Aligners FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/smile-makeover">Smile makeover</a> · <a href="/root-canal">Root canal</a> · <a href="/dental-implants">Dental implants</a></p></div></section>
+  <Cta />
+</Base>

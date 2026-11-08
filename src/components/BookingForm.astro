@@ -1,0 +1,57 @@
+---
+// Posts to /api/book. Works without JavaScript (server redirects to /thank-you);
+// with JavaScript it submits in place and shows a message.
+interface Props { type?: 'appointment' | 'contact'; source?: string }
+const { type = 'appointment', source = Astro.url.pathname } = Astro.props;
+const treatments = ['Full mouth implants', 'Basal implants', 'Teeth in 3 days', 'Single tooth implant', 'Root canal', 'Braces / aligners', 'Smile makeover', 'Check-up / toothache', 'Other'];
+const today = new Date().toISOString().slice(0, 10);
+---
+<form class="booking" method="post" action="/api/book" data-booking>
+  <input type="hidden" name="type" value={type} />
+  <input type="hidden" name="source" value={source} />
+  <div class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
+  <div class="form-row">
+    <div><label for="f-name">Full name *</label><input id="f-name" name="name" required maxlength="100" autocomplete="name" /></div>
+    <div><label for="f-phone">Phone / WhatsApp *</label><input id="f-phone" name="phone" type="tel" required pattern="[0-9+\s\-]{8,16}" autocomplete="tel" placeholder="+91" /></div>
+  </div>
+  <div class="form-row">
+    <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" maxlength="150" autocomplete="email" /></div>
+    {type === 'appointment' ? (
+      <div><label for="f-treat">Treatment</label><select id="f-treat" name="treatment">{treatments.map((t) => <option>{t}</option>)}</select></div>
+    ) : null}
+  </div>
+  {type === 'appointment' && (
+    <div class="form-row">
+      <div><label for="f-date">Preferred date</label><input id="f-date" name="preferred_date" type="date" min={today} /></div>
+      <div><label for="f-time">Preferred time</label><select id="f-time" name="preferred_time"><option>Morning (10–1)</option><option>Afternoon (1–5)</option><option>Evening (5–8)</option></select></div>
+    </div>
+  )}
+  <div><label for="f-msg">{type === 'appointment' ? 'Anything we should know?' : 'Message *'}</label><textarea id="f-msg" name="message" rows="4" maxlength="2000" required={type === 'contact'}></textarea></div>
+  <button class="btn btn-primary" type="submit">{type === 'appointment' ? 'Request Appointment' : 'Send Message'}</button>
+  <p class="form-msg" role="status" aria-live="polite"></p>
+  <p class="small">We reply within 2 hours during clinic hours. Your details are used only to contact you about your visit. <a href="/privacy-policy">Privacy policy</a>.</p>
+</form>
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-booking]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector<HTMLElement>('.form-msg')!;
+      const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+      btn.disabled = true;
+      msg.className = 'form-msg';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+        form.reset();
+        msg.textContent = 'Thank you! We have your request and will call you shortly.';
+        msg.className = 'form-msg ok';
+      } catch (err) {
+        msg.textContent = (err as Error).message + ' Please call or WhatsApp us instead.';
+        msg.className = 'form-msg err';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+</script>

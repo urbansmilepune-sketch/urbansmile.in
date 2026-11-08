@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { SITE } from '../data/site';
+import { PRICES, formatINR } from '../data/prices';
+import { faqSchema } from '../lib/schema';
+
+const faqs = [
+  { q: 'Is a root canal painful?', a: 'Not with modern anaesthesia and rotary instruments. Most patients say it feels like getting a filling.' },
+  { q: 'How long does it take?', a: 'Usually 45 to 90 minutes in a single visit. Complex cases may need a second visit.' },
+  { q: 'How much does a root canal cost?', a: `Root canal treatment starts at ${formatINR(PRICES.rootCanal)}. A crown, which protects the tooth afterwards, is priced separately. We confirm the cost after an X-ray.` },
+  { q: 'How long does a treated tooth last?', a: 'With a crown and regular check-ups, it can last a lifetime.' },
+  { q: 'What happens if I leave an infected tooth untreated?', a: 'The infection can spread to the bone and nearby teeth, cause an abscess, and the tooth may eventually need to be removed.' },
+  { q: 'Isn\'t it easier to just pull the tooth?', a: 'Saving your natural tooth is almost always better. A gap leads to shifting teeth and bone loss, and replacing it costs more.' },
+];
+---
+<Base
+  title="Root Canal Treatment in Pune | Painless Single-Visit RCT | Urban Smile"
+  description={`Painless root canal treatment in Wakad, Pune from ${formatINR(PRICES.rootCanal)}. Single-visit RCT with rotary instruments and digital X-ray to save your natural tooth.`}
+  crumbs={[{ name: 'Root Canal', url: '/root-canal' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Save your natural tooth</p>
+      <h1>Painless Root Canal Treatment in Pune</h1>
+      <p class="lead">Most root canals at Urban Smile are done in one visit, with rotary instruments and effective anaesthesia. From {formatINR(PRICES.rootCanal)}.</p>
+      <ul class="badges"><li>Painless</li><li>Single visit</li><li>Digital X-ray</li><li>Saves your tooth</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Appointment</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>Signs You May Need a Root Canal</h2>
+        <ul class="ticks">
+          <li>Severe toothache when chewing</li>
+          <li>Sensitivity to hot or cold that lingers</li>
+          <li>A tooth turning dark</li>
+          <li>Swollen, tender gums near a tooth</li>
+          <li>A pimple on the gum (abscess)</li>
+          <li>A cracked or chipped tooth with deep decay</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Toothache right now?</h3>
+        <p>Call or WhatsApp us. Urgent cases are seen the same day during clinic hours ({SITE.hours.label}).</p>
+        <a class="btn btn-primary btn-sm" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>How Root Canal Treatment Works</h2>
+      <ol class="steps">
+        <li><h3>Diagnosis</h3><p>Examination and digital X-ray.</p></li>
+        <li><h3>Anaesthesia</h3><p>The tooth is numbed so you feel no pain.</p></li>
+        <li><h3>Cleaning</h3><p>Infected pulp removed, canals cleaned and shaped.</p></li>
+        <li><h3>Sealing</h3><p>Canals filled and sealed.</p></li>
+        <li><h3>Crown</h3><p>A crown protects the tooth for the long term.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Root Canal FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/dental-implants/single-tooth">Single tooth implant</a> · <a href="/smile-makeover">Smile makeover</a> · <a href="/orthodontics">Braces</a></p></div></section>
+  <Cta />
+</Base>

@@ -1,0 +1,18 @@
+---
+import { IMPLANT_PRICE_ROWS, formatINR } from '../data/prices';
+interface Props { heading?: string }
+const { heading = 'Dental Implant Prices in Pune' } = Astro.props;
+---
+<h2>{heading}</h2>
+<p class="section-intro">One price list for every implant option, so you can compare. A free CBCT 3D scan is included with implant treatment, and EMI is available.</p>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Treatment</th><th>Price</th><th>What it covers</th></tr></thead>
+    <tbody>
+      {IMPLANT_PRICE_ROWS.map((r) => (
+        <tr><td>{r.item}</td><td class="num">{formatINR(r.price)}</td><td class="small">{r.note}</td></tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="disclaimer">Prices are starting prices. Your exact cost depends on the number of implants and the teeth chosen, and is confirmed in writing after your consultation and scan.</p>

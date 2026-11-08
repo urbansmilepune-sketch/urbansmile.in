@@ -1,0 +1,13 @@
+---
+import { ytThumb } from '../lib/cloudinary';
+import type { Story } from '../data/stories';
+interface Props { story: Story }
+const { story: s } = Astro.props;
+---
+<a class="card story-card" href={`/patient-stories/${s.slug}`}>
+  {s.video ? <img src={ytThumb(s.video)} alt={`${s.name} dental implant result`} loading="lazy" width="480" height="270" /> : null}
+  <span class="tag">{s.treatment}</span>
+  <h3>{s.name}, {s.age}, {s.city}</h3>
+  <p class="meta">{s.problem}</p>
+  <p class="meta"><strong>Fixed teeth in {s.days} days</strong></p>
+</a>

@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { SITE, STATS } from '../data/site';
+import { cld } from '../lib/cloudinary';
+import { doctorSchema } from '../lib/schema';
+const photo = cld('urbansmile/dr-manish-dighade', { w: 640, h: 720 });
+const timeline = [
+  { year: '2013', text: 'Dr. Dighade begins practising dentistry.' },
+  { year: '2016', text: 'Specialises in dental implant surgery.' },
+  { year: '2018', text: 'Founds Urban Smile Dental Clinic in Wakad.' },
+  { year: '2020', text: 'Becomes a member of the International Congress of Oral Implantologists (ICOI).' },
+  { year: '2023', text: 'Crosses 2,000 implants.' },
+  { year: '2025', text: `Crosses 3,000 implants with a ${STATS.successRate} success rate.` },
+];
+---
+<Base
+  title="About Dr. Manish Dighade | Implant Specialist, Wakad Pune | Urban Smile"
+  description={`Meet Dr. Manish Dighade, BDS (MUHS), ICOI member and founder of Urban Smile Dental Clinic, Wakad. ${STATS.years} years of experience and ${STATS.implants} dental implants.`}
+  crumbs={[{ name: 'About', url: '/about' }]}
+  schema={[doctorSchema()]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">About Urban Smile</p>
+      <h1>Meet Dr. Manish Dighade</h1>
+      <p class="lead">Urban Smile is a dental implant centre in Wakad, Pune, built around careful planning, honest pricing and modern technology.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>Implant Specialist, Wakad</h2>
+        <p>{SITE.doctor.name} ({SITE.doctor.qualifications}) has practised since {SITE.doctor.since} and has focused on implant surgery since 2016. He handles complex cases that other clinics often turn away: full mouth rehabilitation, basal implants for patients with severe bone loss, All-on-4 and All-on-6, and fixed teeth within 72 hours.</p>
+        <p>Every implant case is planned on a CBCT 3D scan so implants go exactly where the bone is strongest. That planning is why most patients can skip bone grafting and get fixed teeth in 3 days.</p>
+        <ul class="ticks">
+          <li>BDS, Maharashtra University of Health Sciences (MUHS)</li>
+          <li>Member, International Congress of Oral Implantologists (ICOI)</li>
+          <li>Fellow, OSOI</li>
+        </ul>
+      </div>
+      <div>
+        {photo ? <img src={photo} alt={SITE.doctor.name} width="640" height="720" style="border-radius:12px" loading="lazy" /> : (
+          <div class="stats" style="grid-template-columns:1fr 1fr">
+            <div><strong>{STATS.years}</strong><span>Years</span></div>
+            <div><strong>{STATS.implants}</strong><span>Implants</span></div>
+            <div><strong>{STATS.patients}</strong><span>Patients</span></div>
+            <div><strong>{STATS.googleRating}★</strong><span>Google ({STATS.googleReviews})</span></div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Our Journey</h2>
+      <div class="grid grid-3">
+        {timeline.map((t) => <div class="card"><h3>{t.year}</h3><p>{t.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What We Treat</h2>
+      <p>Full mouth implants, basal implants, 3-day implants, All-on-4 / All-on-6, single tooth implants, root canal treatment, braces and aligners, smile makeovers and care for international patients. <a href="/services">See all services</a>.</p>
+    </div>
+  </section>
+  <Cta heading="Visit Us Today" />
+</Base>

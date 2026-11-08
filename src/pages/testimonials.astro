@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import StoryCard from '../components/StoryCard.astro';
+import YouTube from '../components/YouTube.astro';
+import { SITE, STATS } from '../data/site';
+import { STORIES } from '../data/stories';
+const videos = STORIES.filter((s) => s.video).slice(0, 4);
+---
+<Base
+  title="Patient Testimonials & Reviews | Urban Smile Dental Clinic Pune"
+  description={`Video testimonials from Urban Smile patients and our ${STATS.googleRating}-star Google rating from ${STATS.googleReviews} reviews. Dental implants in Wakad, Pune.`}
+  crumbs={[{ name: 'Testimonials', url: '/testimonials' }]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>What Our Patients Say</h1>
+      <p class="lead">Rated {STATS.googleRating} on Google from {STATS.googleReviews} reviews, with {STATS.videos} patient videos on YouTube.</p>
+      <div class="btn-row"><a class="btn btn-primary" href={SITE.mapsUrl} rel="noopener">Read our Google reviews</a><a class="btn btn-outline" href={SITE.social.youtube} rel="noopener">Watch on YouTube</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>Video Testimonials</h2>
+      <div class="grid grid-2">
+        {videos.map((s) => <div><YouTube id={s.video!} title={`${s.name}, ${s.age}, ${s.city}`} /><p style="margin-top:8px"><a href={`/patient-stories/${s.slug}`}><strong>{s.name}, {s.age}, {s.city}</strong></a> · {s.treatment}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="wrap">
+      <h2>More Patient Stories</h2>
+      <div class="grid grid-3">{STORIES.slice(4, 10).map((s) => <StoryCard story={s} />)}</div>
+    </div>
+  </section>
+  <Cta />
+</Base>

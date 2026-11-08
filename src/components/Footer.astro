@@ -1,0 +1,64 @@
+---
+import { SITE, STATS, waLink } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3>{SITE.name}</h3>
+        <p>{SITE.tagline}. {STATS.years} years of implant experience, {STATS.implants} implants placed, rated {STATS.googleRating} on Google ({STATS.googleReviews} reviews).</p>
+        <p>
+          {SITE.address.full}<br />
+          <a href={SITE.phoneHref}>{SITE.phone}</a><br />
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          {SITE.hours.label}
+        </p>
+      </div>
+      <div>
+        <h3>Treatments</h3>
+        <ul>
+          <li><a href="/dental-implants">Dental Implants</a></li>
+          <li><a href="/dental-implants/full-mouth">Full Mouth Implants</a></li>
+          <li><a href="/dental-implants/basal-implants">Basal Implants</a></li>
+          <li><a href="/dental-implants/3-day-implants">3-Day Implants</a></li>
+          <li><a href="/dental-implants/single-tooth">Single Tooth Implant</a></li>
+          <li><a href="/root-canal">Root Canal</a></li>
+          <li><a href="/orthodontics">Braces &amp; Aligners</a></li>
+          <li><a href="/smile-makeover">Smile Makeover</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/about">About Dr. Manish Dighade</a></li>
+          <li><a href="/patient-stories">Patient Stories</a></li>
+          <li><a href="/testimonials">Testimonials</a></li>
+          <li><a href="/dental-tourism">Dental Tourism</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/book">Book Appointment</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Areas We Serve</h3>
+        <ul>
+          <li><a href="/dentist-in-wakad-pune">Dentist in Wakad</a></li>
+          <li><a href="/dentist-in-hinjewadi-pune">Dentist in Hinjewadi</a></li>
+          <li><a href="/dentist-in-baner-pune">Dentist in Baner</a></li>
+          <li><a href="/dentist-in-pimple-saudagar-pune">Dentist in Pimple Saudagar</a></li>
+          <li><a href="/best-dentist-in-pune">Best Dentist in Pune</a></li>
+        </ul>
+        <h3 style="margin-top:18px">Follow Us</h3>
+        <ul>
+          <li><a href={SITE.social.youtube} rel="noopener">YouTube</a></li>
+          <li><a href={SITE.social.instagram} rel="noopener">Instagram</a></li>
+          <li><a href={SITE.mapsUrl} rel="noopener">Google Maps</a></li>
+          <li><a href={waLink()} rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">© {year} {SITE.name}. All rights reserved.</div>
+  </div>
+</footer>

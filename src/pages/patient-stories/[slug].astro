@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import YouTube from '../../components/YouTube.astro';
+import { SITE } from '../../data/site';
+import { STORIES, type Story } from '../../data/stories';
+import { ytThumb } from '../../lib/cloudinary';
+
+export function getStaticPaths() {
+  return STORIES.map((story) => ({ params: { slug: story.slug }, props: { story } }));
+}
+const { story: s } = Astro.props as { story: Story };
+const more = STORIES.filter((x) => x.slug !== s.slug).slice(0, 3);
+const treatmentLink = s.treatment === 'Basal Implants' ? '/dental-implants/basal-implants' : s.treatment === 'Upper Arch Implants' ? '/dental-implants/3-day-implants' : '/dental-implants/full-mouth';
+---
+<Base
+  title={s.headline.length > 58 ? s.headline : `${s.headline} | Urban Smile`}
+  description={`${s.name}, ${s.age}, from ${s.city} got fixed teeth in ${s.days} days with ${s.treatment.toLowerCase()} at Urban Smile, Pune. Watch the patient video and read the case.`}
+  crumbs={[{ name: 'Patient Stories', url: '/patient-stories' }, { name: s.name, url: `/patient-stories/${s.slug}` }]}
+  ogType="article"
+  image={s.video ? ytThumb(s.video) : undefined}
+>
+  <article>
+    <section class="section">
+      <div class="wrap two-col">
+        <div>
+          <span class="tag">{s.treatment}</span>
+          <h1>{s.headline}</h1>
+          {s.video && <YouTube id={s.video} title={`${s.name}'s story`} />}
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.2rem">Patient Snapshot</h2>
+          <table style="min-width:0">
+            <tbody>
+              <tr><td>Patient</td><td>{s.name}</td></tr>
+              <tr><td>Age</td><td>{s.age}</td></tr>
+              <tr><td>From</td><td>{s.city}</td></tr>
+              <tr><td>Treatment</td><td><a href={treatmentLink}>{s.treatment}</a></td></tr>
+              <tr><td>Fixed teeth in</td><td>{s.days} days</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section soft">
+      <div class="wrap prose">
+        <h2>The Problem</h2>
+        <p>{s.problem}</p>
+        <h2>Treatment</h2>
+        <p>{s.treatmentDone}</p>
+        <h2>Result</h2>
+        <p>{s.outcome}</p>
+        {s.quote && <><h2>In {s.name.split(' ')[0]}'s Words</h2><blockquote><p>"{s.quote}"</p></blockquote></>}
+        <h2>Doctor's Note</h2>
+        <p>{s.doctor} <em>– {SITE.doctor.name}</em></p>
+        <p class="disclaimer">Results vary between patients. Shared with the patient's consent.</p>
+      </div>
+    </section>
+  </article>
+  <section class="section">
+    <div class="wrap">
+      <h2>More Patient Stories</h2>
+      <div class="grid grid-3">{more.map((x) => <StoryCard story={x} />)}</div>
+    </div>
+  </section>
+  <Cta heading="Want a Similar Transformation?" />
+</Base>

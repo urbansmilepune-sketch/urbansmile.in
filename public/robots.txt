@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /thank-you
+
+Sitemap: https://urbansmile.in/sitemap-index.xml

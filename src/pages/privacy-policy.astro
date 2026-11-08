@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Privacy Policy" description="How Urban Smile Dental Clinic uses the details you share through this website." crumbs={[{ name: 'Privacy Policy', url: '/privacy-policy' }]}>
+  <section class="section"><div class="wrap prose">
+    <h1>Privacy Policy</h1>
+    <p>When you send a booking or contact form, we collect your name, phone number and, if you give them, your email, treatment interest, preferred date and message.</p>
+    <h2>How we use it</h2>
+    <p>Only to contact you about your appointment or question. We do not sell or share your details with anyone for marketing.</p>
+    <h2>Where it is stored</h2>
+    <p>Form submissions are stored securely with our database provider (Supabase) and sent to the clinic by email (Resend). Access is limited to clinic staff.</p>
+    <h2>Your choices</h2>
+    <p>To see, correct or delete your details, email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or call {SITE.phone}.</p>
+    <h2>Cookies</h2>
+    <p>This website does not use tracking cookies. Embedded YouTube videos only load when you press play.</p>
+  </div></section>
+</Base>

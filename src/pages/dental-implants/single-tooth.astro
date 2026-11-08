@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import Cta from '../../components/Cta.astro';
+import { SITE } from '../../data/site';
+import { PRICES, formatINR } from '../../data/prices';
+import { faqSchema } from '../../lib/schema';
+
+const faqs = [
+  { q: 'How much does a single tooth implant cost in Pune?', a: `The implant alone starts at ${formatINR(PRICES.implantOnly)}. A complete tooth (implant plus crown) costs ${formatINR(PRICES.implantMetalCrown)} with a metal crown, ${formatINR(PRICES.implantCeramicCrown)} with a ceramic crown or ${formatINR(PRICES.implantZirconiaCrown)} with a zirconia crown.` },
+  { q: 'How long does it take?', a: 'The surgery takes 30 to 45 minutes. The crown is usually fitted after 3 to 4 months of healing, and in some cases it can be loaded immediately.' },
+  { q: 'Is an implant better than a bridge?', a: 'Usually yes. A bridge needs the healthy teeth on either side to be ground down and lasts about 7 to 10 years. An implant leaves neighbouring teeth alone, keeps the jawbone healthy and can last a lifetime.' },
+  { q: 'Does insurance cover dental implants?', a: 'Some plans cover part of the cost. We can help you check your cover, and EMI options are available.' },
+];
+---
+<Base
+  title={`Single Tooth Implant in Pune | From ${formatINR(PRICES.implantOnly)} | Urban Smile`}
+  description={`Replace one missing tooth with a single dental implant in Pune. Implant from ${formatINR(PRICES.implantOnly)}, complete tooth with ceramic crown ${formatINR(PRICES.implantCeramicCrown)}. No grinding of neighbouring teeth. Free CBCT scan.`}
+  crumbs={[{ name: 'Dental Implants', url: '/dental-implants' }, { name: 'Single Tooth Implant', url: '/dental-implants/single-tooth' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">From {formatINR(PRICES.implantOnly)}</p>
+      <h1>Single Tooth Implant in Pune</h1>
+      <p class="lead">A permanent, natural-looking replacement for one missing tooth. Unlike a bridge, it doesn't need the teeth next to it to be ground down.</p>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Single Implant Prices</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Option</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td>Implant only (Korean / Indian)</td><td class="num">{formatINR(PRICES.implantOnly)}</td></tr>
+          <tr><td>Implant + metal crown</td><td class="num">{formatINR(PRICES.implantMetalCrown)}</td></tr>
+          <tr><td>Implant + ceramic crown</td><td class="num">{formatINR(PRICES.implantCeramicCrown)}</td></tr>
+          <tr><td>Implant + zirconia crown</td><td class="num">{formatINR(PRICES.implantZirconiaCrown)}</td></tr>
+          <tr><td>CBCT 3D scan</td><td class="num">Free with surgery</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Implant vs Bridge</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th>Bridge</th><th>Implant</th></tr></thead>
+        <tbody>
+          <tr><td>Neighbouring teeth</td><td>Ground down to hold the bridge</td><td>Left untouched</td></tr>
+          <tr><td>Jawbone</td><td>Keeps shrinking under the gap</td><td>Preserved</td></tr>
+          <tr><td>Lifespan</td><td>About 7 to 10 years</td><td>Can last a lifetime</td></tr>
+          <tr><td>Feel</td><td>Fixed, but joined teeth</td><td>Works like a natural tooth</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Single Tooth Implant FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/dental-implants">All implant options</a> · <a href="/dental-implants/full-mouth">Full mouth implants</a> · <a href="/blog/cost-of-dental-implants-in-pune">Implant cost guide</a></p></div></section>
+  <Cta />
+</Base>

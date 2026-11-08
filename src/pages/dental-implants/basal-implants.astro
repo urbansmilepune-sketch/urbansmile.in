@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import Cta from '../../components/Cta.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import { SITE, STATS } from '../../data/site';
+import { PRICES, formatINR } from '../../data/prices';
+import { STORIES } from '../../data/stories';
+import { faqSchema } from '../../lib/schema';
+
+// This page replaces both /basal-implants-pune and /dental-implants/basal-implants (the old one redirects here).
+const faqs = [
+  { q: 'What are basal implants?', a: 'Basal implants anchor in the dense cortical (basal) bone of the jaw instead of the softer bone that shrinks after teeth are lost. Because that bone does not resorb, they can be used even with severe bone loss.' },
+  { q: 'How are they different from conventional implants?', a: 'No bone grafting, no sinus lift and no long healing wait. Fixed teeth can be attached within 72 hours, usually in a single surgery.' },
+  { q: 'How much do basal implants cost in Pune?', a: `${formatINR(PRICES.basalPerImplant)} per implant. A single jaw starts at ${formatINR(PRICES.singleJaw)} and full mouth (both jaws) costs ${formatINR(PRICES.fullMouth)}, including CT scan, implants, teeth and follow-up.` },
+  { q: 'Are basal implants safe for diabetics?', a: 'Yes, for controlled diabetes (HbA1c below about 7.5). We check your reports before planning.' },
+  { q: 'Are they suitable for seniors?', a: 'Yes. We regularly treat patients aged 60 to 80 and above.' },
+  { q: 'How long do they last?', a: 'The implants are designed to be lifelong and carry a lifetime warranty on the fixture. The fixed teeth usually last 15 to 20 years.' },
+  { q: 'What is the success rate?', a: `Published clinical success rates are 95 to 98%. Our own rate across ${STATS.implants} implants is about ${STATS.successRate}.` },
+];
+const stories = STORIES.filter((s) => s.treatment === 'Basal Implants');
+---
+<Base
+  title={`Basal Implants in Pune | No Bone Graft | ${formatINR(PRICES.basalPerImplant)} | Urban Smile`}
+  description={`Basal implants in Pune for patients with bone loss: no bone graft, fixed teeth in 72 hours. ${formatINR(PRICES.basalPerImplant)} per implant, full mouth ${formatINR(PRICES.fullMouth)}. Safe for controlled diabetics and seniors.`}
+  crumbs={[{ name: 'Dental Implants', url: '/dental-implants' }, { name: 'Basal Implants', url: '/dental-implants/basal-implants' }]}
+  schema={[faqSchema(faqs)]}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{formatINR(PRICES.basalPerImplant)} per implant</p>
+      <h1>Basal Implants in Pune: Fixed Teeth Without Bone Grafting</h1>
+      <p class="lead">Told you don't have enough bone for implants? Basal implants anchor in the jaw's strongest bone, so most patients with bone loss can still get fixed teeth within 3 days.</p>
+      <ul class="badges"><li>No bone graft</li><li>Teeth in 72 hours</li><li>Single surgery</li><li>Lifetime implant warranty</li></ul>
+      <div class="btn-row"><a class="btn btn-primary" href="/book">Book Free Consultation</a><a class="btn btn-outline" href={SITE.phoneHref}>Call Now</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Key Benefits of Basal Implants</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>No bone grafting</h3><p>Anchors in cortical bone, so you skip graft surgery and its cost.</p></div>
+        <div class="card"><h3>Fixed teeth in 3 days</h3><p>Immediate loading means no months without teeth.</p></div>
+        <div class="card"><h3>Single surgery</h3><p>One procedure instead of the 2 to 3 needed for conventional implants with grafting.</p></div>
+        <div class="card"><h3>Works with bone loss</h3><p>An option when other clinics have said no.</p></div>
+        <div class="card"><h3>Diabetics and seniors</h3><p>Suitable for controlled diabetes and patients over 60.</p></div>
+        <div class="card"><h3>Lower total cost</h3><p>No grafting or sinus lift to pay for.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <h2>Basal vs Conventional Implants</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th>Conventional implants</th><th>Basal implants</th></tr></thead>
+        <tbody>
+          <tr><td>Bone needed</td><td>Good bone height and width</td><td>Works with significant bone loss</td></tr>
+          <tr><td>Bone graft / sinus lift</td><td>Often required</td><td>Not required</td></tr>
+          <tr><td>Time to fixed teeth</td><td>6 to 9 months</td><td>About 72 hours</td></tr>
+          <tr><td>Surgeries</td><td>2 to 3</td><td>1</td></tr>
+          <tr><td>Full mouth cost</td><td>{formatINR(PRICES.traditionalFullMouth)}+</td><td>{formatINR(PRICES.fullMouth)}</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>Who Benefits Most</h2>
+        <ul class="ticks">
+          <li>Patients with significant bone loss</li>
+          <li>Patients turned away by other clinics</li>
+          <li>People with controlled diabetes</li>
+          <li>Long-term smokers</li>
+          <li>Adults aged 60 and over</li>
+          <li>Patients whose earlier implants failed</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Basal Implant Prices</h3>
+        <p>Single basal implant: <strong class="price">{formatINR(PRICES.basalPerImplant)}</strong></p>
+        <p>Single jaw: <strong class="price">{formatINR(PRICES.singleJaw)}</strong></p>
+        <p>Full mouth (both jaws): <strong class="price">{formatINR(PRICES.fullMouth)}</strong></p>
+        <p class="small">Free CT scan included. EMI available.</p>
+      </div>
+    </div>
+  </section>
+
+  {stories.length > 0 && (
+    <section class="section soft"><div class="wrap"><h2>Basal Implant Patient Stories</h2><div class="grid grid-3">{stories.map((s) => <StoryCard story={s} />)}</div></div></section>
+  )}
+
+  <Faq faqs={faqs} heading="Basal Implant FAQs" />
+  <section class="section"><div class="wrap"><p>Related: <a href="/dental-implants/3-day-implants">3-day implants</a> · <a href="/dental-implants/full-mouth">Full mouth implants</a> · <a href="/blog/cost-of-dental-implants-in-pune">Implant cost guide</a></p><p class="disclaimer">Results vary between patients. Suitability is confirmed after examination and CBCT scan.</p></div></section>
+  <Cta heading="Get Dental Implants Without Bone Grafting" />
+</Base>
